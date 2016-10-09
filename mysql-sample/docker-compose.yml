@@ -1,0 +1,24 @@
+version: '2'
+services:
+  mysql:
+    container_name: mysql-datastore
+    image: altfatterz/mysql
+    # expose 3306 port to host, handy to inspect the database from the host machine
+    ports:
+      - "3306:3306"
+  web:
+    container_name: service-using-mysql-datastore
+    image: altfatterz/mysql-sample
+    # docker-compose will start services in dependency order. Here mysql service will be started before web
+    # depends_on will not wait for mysql to be "ready" before starting "web". If you need a service to be ready see
+    # https://docs.docker.com/compose/startup-order/
+    depends_on:
+      - mysql
+    # open ports for tomcat and remote debugging
+    ports:
+      - "8080:8080"
+      - "8000:8000"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql/db?autoReconnect=true&useSSL=false
+      SPRING_DATASOURCE_USERNAME: demo
+      SPRING_DATASOURCE_PASSWORD: demo
