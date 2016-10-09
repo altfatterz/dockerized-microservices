@@ -2,9 +2,9 @@
 
 1. Clone the repository
 
-```
-$ git clone https://github.com/altfatterz/dockerized-microservices
-```
+   ```
+   $ git clone https://github.com/altfatterz/dockerized-microservices
+   ```
 
 2. Start docker
 
