@@ -43,7 +43,7 @@ bf168fb3aa4e        altfatterz/mysql-sample   "./start.sh"             11 second
 9b3224b1fc0a        altfatterz/mysql          "docker-entrypoint.sh"   12 seconds ago      Up 11 seconds       0.0.0.0:3306->3306/tcp                           mysql-datastore
 ```
 
-6. Verify that the service is up
+7. Verify that the service is up
 
 ```
 http :8080/health
