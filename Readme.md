@@ -20,8 +20,11 @@
    $ docker images
 
    REPOSITORY                   TAG                 IMAGE ID            CREATED             SIZE
-   altfatterz/mysql-sample      latest              8a5462cebfea        2 minutes ago       235.6 MB
-   altfatterz/mysql             latest              3bb1560c598e        2 hours ago         383.4 MB
+   altfatterz/mongodb-sample    latest              5572c82d29bc        6 seconds ago       211.3 MB
+   altfatterz/mongodb           latest              f8252bb4083b        12 seconds ago      401 MB
+   altfatterz/mysql-sample      latest              7e5a1caca131        34 seconds ago      235.6 MB
+   altfatterz/mysql             latest              2b4c7bc5b1ee        58 seconds ago      383.4 MB
+   mongo                        3.3                 aa57b208cc5d        11 days ago         401 MB
    mysql                        5.7.15              18f13d72f7f0        2 weeks ago         383.4 MB
    frolvlad/alpine-oraclejdk8   slim                f8103909759b        2 weeks ago         167.1 MB
    ```

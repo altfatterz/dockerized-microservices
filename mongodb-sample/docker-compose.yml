@@ -1,0 +1,17 @@
+version: '2'
+services:
+  mongodb:
+    container_name: mongodb-datastore
+    image: altfatterz/mongodb
+    ports:
+      - "27017:27017"
+  web:
+    container_name: service-using-mongodb-datastore
+    image: altfatterz/mongodb-sample
+    depends_on:
+      - mongodb
+    ports:
+      - "8080:8080"
+      - "8000:8000"
+    environment:
+      SPRING_DATA_MONGODB_URI: mongodb://mongodb/test
