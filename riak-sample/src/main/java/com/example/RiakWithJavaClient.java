@@ -16,16 +16,13 @@ import java.util.concurrent.ExecutionException;
  * @author Zoltan Altfatter
  */
 
-// http://basho.com/posts/technical/running-riak-in-docker/
-
-public class RiakClusters {
+public class RiakWithJavaClient {
 
     public static void main(String[] args) throws UnknownHostException, ExecutionException, InterruptedException {
 
         // This method produces a client that connects to localhost on the default protocol buffers port (8087)
         // creates and starts an underlying RiakCluster with a single node
         RiakClient client = RiakClient.newClient();
-
 
         // First, we'll create a basic object storing a movie quote
         RiakObject quoteObject = new RiakObject()
