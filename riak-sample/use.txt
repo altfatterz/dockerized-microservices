@@ -1,0 +1,60 @@
+$ docker-compose up -d coordinator
+Creating network "riaksample_default" with the default driver
+Creating riaksample_coordinator_1
+
+➜  ~ docker ps -a
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                                            NAMES
+806373bd4eb0        basho/riak-kv       "/bin/sh -c $RIAK_HOM"   39 seconds ago      Up 35 seconds       0.0.0.0:8087->8087/tcp, 0.0.0.0:8098->8098/tcp   riaksample_coordinator_1
+
+------------------------------
+
+$ docker exec -it riaksample_coordinator_1 bash
+root@806373bd4eb0:/var/lib/riak# riak-admin cluster status
+---- Cluster Status ----
+Ring ready: true
+
++---------------------+------+-------+-----+-------+
+|        node         |status| avail |ring |pending|
++---------------------+------+-------+-----+-------+
+| (C) riak@172.24.0.2 |valid |  up   |100.0|  --   |
++---------------------+------+-------+-----+-------+
+
+
+------------------------------
+
+$ docker-compose scale=member
+
+Creating and starting riaksample_member_1 ... done
+Creating and starting riaksample_member_2 ... done
+Creating and starting riaksample_member_3 ... done
+Creating and starting riaksample_member_4 ... done
+
+
+------------------------------
+
+$ docker exec -it riaksample_coordinator_1 bash
+
+root@806373bd4eb0:/var/lib/riak# riak-admin cluster status
+---- Cluster Status ----
+Ring ready: true
+
++---------------------+------+-------+-----+-------+
+|        node         |status| avail |ring |pending|
++---------------------+------+-------+-----+-------+
+| (C) riak@172.24.0.2 |valid |  up   | 75.0|  50.0 |
+|     riak@172.24.0.3 |valid |  up   |  0.0|   0.0 |
+|     riak@172.24.0.4 |valid |  up   | 25.0|  50.0 |
+|     riak@172.24.0.5 |valid |  up   |  0.0|   0.0 |
+|     riak@172.24.0.6 |valid |  up   |  0.0|   0.0 |
++---------------------+------+-------+-----+-------+
+
+------------------------------
+
+http://localhost:8098/admin/#/cluster/default/ops
+
+Check --> Individual Node Details
+
+
+Stops and removes the containers:
+$ docker-compose down
+

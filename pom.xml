@@ -12,6 +12,7 @@
     <modules>
         <module>mysql-sample</module>
         <module>mongodb-sample</module>
+        <module>riak-sample</module>
     </modules>
 
     <parent>
