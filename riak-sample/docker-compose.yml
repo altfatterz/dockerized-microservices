@@ -1,31 +1,20 @@
-version: "2"
+version: '2'
 services:
-  coordinator:
-    image: basho/riak-kv
+  riak:
+    container_name: riak-datastore
+    image: altfatterz/riak
     ports:
       - "8087:8087"
       - "8098:8098"
-    environment:
-      - CLUSTER_NAME=riakkv
-    labels:
-      - "com.basho.riak.cluster.name=riakkv"
-    volumes:
-      - schemas:/etc/riak/schemas
-  member:
-    image: basho/riak-kv
-    ports:
-      - "8087"
-      - "8098"
-    labels:
-      - "com.basho.riak.cluster.name=riakkv"
-    links:
-      - coordinator
+  web:
+    container_name: service-using-riak-datastore
+    image: altfatterz/riak-sample
+    # docker-compose will start services in dependency order. Here mysql service will be started before web
+    # depends_on will not wait for mysql to be "ready" before starting "web". If you need a service to be ready see
+    # https://docs.docker.com/compose/startup-order/
     depends_on:
-      - coordinator
-    environment:
-      - CLUSTER_NAME=riakkv
-      - COORDINATOR_NODE=coordinator
-
-volumes:
-  schemas:
-    external: false
+      - riak
+    # open ports for tomcat and remote debugging
+    ports:
+      - "8080:8080"
+      - "8000:8000"

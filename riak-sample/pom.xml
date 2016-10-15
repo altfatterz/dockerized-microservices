@@ -11,6 +11,17 @@
 
     <artifactId>riak-sample</artifactId>
 
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>1.8</java.version>
+
+        <riak.client.version>2.0.7</riak.client.version>
+
+        <docker.image.prefix>altfatterz</docker.image.prefix>
+        <docker.maven.plugin.version>0.4.13</docker.maven.plugin.version>
+    </properties>
+
     <dependencies>
 
         <dependency>
@@ -21,7 +32,7 @@
         <dependency>
             <groupId>com.basho.riak</groupId>
             <artifactId>riak-client</artifactId>
-            <version>2.0.7</version>
+            <version>${riak.client.version}</version>
         </dependency>
 
         <dependency>
@@ -33,6 +44,7 @@
 
     <build>
         <plugins>
+
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
@@ -40,6 +52,51 @@
                     <mainClass>BookApplication</mainClass>
                 </configuration>
             </plugin>
+
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>${docker.maven.plugin.version}</version>
+                <executions>
+
+                    <execution>
+                        <id>riak</id>
+                        <!-- bind docker commands to maven phases -->
+                        <phase>package</phase>
+                        <goals>
+                            <goal>build</goal>
+                        </goals>
+                        <configuration>
+                            <imageName>${docker.image.prefix}/riak</imageName>
+                            <!-- the contents of dockerDirectory will be copied into ${project.build.directory}/docker folder -->
+                            <dockerDirectory>${project.basedir}/src/main/db</dockerDirectory>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>web</id>
+                        <!-- bind docker commands to maven phases -->
+                        <phase>package</phase>
+                        <goals>
+                            <goal>build</goal>
+                        </goals>
+                        <configuration>
+                            <imageName>${docker.image.prefix}/${project.artifactId}</imageName>
+                            <dockerDirectory>${project.basedir}/src/main/docker</dockerDirectory>
+                            <!-- Use the resources element to copy additional files, such as the service's jar file -->
+                            <resources>
+                                <resource>
+                                    <targetPath>/</targetPath>
+                                    <directory>${project.build.directory}</directory>
+                                    <include>${project.build.finalName}.jar</include>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+
+                </executions>
+            </plugin>
+
 
         </plugins>
     </build>
