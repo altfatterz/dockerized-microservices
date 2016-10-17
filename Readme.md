@@ -24,6 +24,9 @@
    altfatterz/mongodb           latest              f8252bb4083b        12 seconds ago      401 MB
    altfatterz/mysql-sample      latest              7e5a1caca131        34 seconds ago      235.6 MB
    altfatterz/mysql             latest              2b4c7bc5b1ee        58 seconds ago      383.4 MB
+   altfatterz/riak-sample       latest              7d22a6db14e6        6 seconds ago       220.9 MB
+   altfatterz/riak              latest              0f9e87c43b63        31 seconds ago      581.8 MB
+   basho/riak-kv                latest              24536af1c97c        6 days ago          581.8 MB
    mongo                        3.3                 aa57b208cc5d        11 days ago         401 MB
    mysql                        5.7.15              18f13d72f7f0        2 weeks ago         383.4 MB
    frolvlad/alpine-oraclejdk8   slim                f8103909759b        2 weeks ago         167.1 MB
