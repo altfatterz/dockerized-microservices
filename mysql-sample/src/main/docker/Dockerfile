@@ -1,5 +1,5 @@
 # The smallest Docker image with OracleJDK 8 (167MB)
-FROM frolvlad/alpine-oraclejdk8:slim
+FROM frolvlad/alpine-oraclejre8:slim
 
 # add bash and coreutils
 RUN apk add --no-cache bash coreutils
